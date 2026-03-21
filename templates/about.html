@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+
+{% block title %}About | {{ site_name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header about-header">
+    <div class="container">
+        <span class="section-tag">About Me</span>
+        <h1 class="page-title">The Story Behind Th7media</h1>
+    </div>
+</section>
+
+<!-- About Content -->
+<section class="about-section">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-image">
+                <div class="image-placeholder">
+                    <span class="image-initial">T</span>
+                </div>
+                <div class="experience-badge">
+                    <span class="badge-number">5+</span>
+                    <span class="badge-text">Years<br>Experience</span>
+                </div>
+            </div>
+            
+            <div class="about-content">
+                <h2>Developer, Designer & Educator</h2>
+                <p>
+                    I'm a passionate full-stack developer with a love for clean code and beautiful design. 
+                    My journey began with a curiosity about how websites work, which led me down the rabbit 
+                    hole of web development and never looked back.
+                </p>
+                <p>
+                    Over the years, I've had the privilege of working with startups, agencies, and individuals 
+                    to bring their digital visions to life. From complex web applications to stunning brand 
+                    identities, I approach every project with the same dedication to quality and attention to detail.
+                </p>
+                <p>
+                    Teaching has become an integral part of my work. I believe knowledge should be shared, 
+                    and there's nothing more rewarding than helping someone else master a new skill. That's 
+                    why I created the Learning Lab — to make quality web development education accessible to everyone.
+                </p>
+                
+                <div class="about-stats">
+                    <div class="about-stat">
+                        <span class="stat-value">50+</span>
+                        <span class="stat-label">Projects Completed</span>
+                    </div>
+                    <div class="about-stat">
+                        <span class="stat-value">100+</span>
+                        <span class="stat-label">Students Taught</span>
+                    </div>
+                    <div class="about-stat">
+                        <span class="stat-value">3</span>
+                        <span class="stat-label">Countries Worked In</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Detail -->
+<section class="skills-detail-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Expertise</span>
+            <h2 class="section-title">What I Do Best</h2>
+        </div>
+        
+        <div class="skills-detail-grid">
+            <div class="skill-detail-card">
+                <div class="skill-detail-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 17l6-6-6-6M12 19h8"/>
+                    </svg>
+                </div>
+                <h3>Web Development</h3>
+                <p>Building fast, scalable, and secure web applications using modern technologies. From concept to deployment, I handle the full development lifecycle.</p>
+                <ul class="skill-list">
+                    <li>Full-stack Development</li>
+                    <li>API Design & Integration</li>
+                    <li>Database Architecture</li>
+                    <li>Performance Optimization</li>
+                </ul>
+            </div>
+            
+            <div class="skill-detail-card">
+                <div class="skill-detail-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+                        <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+                        <path d="M2 2l7.586 7.586"/>
+                        <circle cx="11" cy="11" r="2"/>
+                    </svg>
+                </div>
+                <h3>UI/UX Design</h3>
+                <p>Creating intuitive and visually appealing interfaces that users love. I focus on user-centered design principles and accessibility.</p>
+                <ul class="skill-list">
+                    <li>Interface Design</li>
+                    <li>User Research</li>
+                    <li>Prototyping</li>
+                    <li>Design Systems</li>
+                </ul>
+            </div>
+            
+            <div class="skill-detail-card">
+                <div class="skill-detail-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <h3>Education</h3>
+                <p>Teaching web development and programming to students of all levels. I break down complex concepts into digestible, practical lessons.</p>
+                <ul class="skill-list">
+                    <li>One-on-One Tutoring</li>
+                    <li>Curriculum Development</li>
+                    <li>Code Reviews</li>
+                    <li>Workshop Facilitation</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tech Stack -->
+<section class="tech-stack-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Tools</span>
+            <h2 class="section-title">My Tech Stack</h2>
+        </div>
+        
+        <div class="tech-categories">
+            <div class="tech-category">
+                <h3>Languages</h3>
+                <div class="tech-items">
+                    {% for skill in skills.languages %}
+                    <span class="tech-item">{{ skill }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="tech-category">
+                <h3>Frameworks & Libraries</h3>
+                <div class="tech-items">
+                    {% for skill in skills.frameworks %}
+                    <span class="tech-item">{{ skill }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="tech-category">
+                <h3>Tools & Platforms</h3>
+                <div class="tech-items">
+                    {% for skill in skills.tools %}
+                    <span class="tech-item">{{ skill }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Philosophy -->
+<section class="philosophy-section">
+    <div class="container">
+        <div class="philosophy-card">
+            <div class="philosophy-content">
+                <span class="section-tag">Philosophy</span>
+                <h2>How I Work</h2>
+                <blockquote>
+                    "Clean code, thoughtful design, and continuous learning are the foundations of everything I create."
+                </blockquote>
+                <div class="principles">
+                    <div class="principle">
+                        <h4>Quality First</h4>
+                        <p>I believe in doing things right the first time. Every line of code and every pixel is crafted with care.</p>
+                    </div>
+                    <div class="principle">
+                        <h4>User-Centered</h4>
+                        <p>Technology should serve people. I always keep the end user in mind throughout the development process.</p>
+                    </div>
+                    <div class="principle">
+                        <h4>Continuous Growth</h4>
+                        <p>The tech world evolves rapidly, and so do I. I'm always learning new skills and refining my craft.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-card">
+            <div class="cta-content">
+                <h2>Let's Create Something Together</h2>
+                <p>Whether you have a project in mind or just want to connect, I'm always open to new opportunities.</p>
+            </div>
+            <a href="{{ url_for('contact') }}" class="btn btn-light">
+                Get in Touch
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

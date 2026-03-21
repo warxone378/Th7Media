@@ -1,0 +1,322 @@
+{% extends "base.html" %}
+
+{% block title %}Home | {{ site_name }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero" id="home">
+    <div class="hero-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+    <div class="hero-content">
+        <div class="hero-badge">
+            <span class="badge-dot"></span>
+            Available for Projects
+        </div>
+        <h1 class="hero-title">
+            <span class="title-line">Hi, I'm Th7media</span>
+            <span class="title-line typewriter">
+                <span id="typewriter-text"></span>
+                <span class="cursor">|</span>
+            </span>
+        </h1>
+        <p class="hero-description">
+            I create beautiful digital experiences through code and design. 
+            Passionate about teaching others to build the web.
+        </p>
+        <div class="hero-cta">
+            <a href="{{ url_for('portfolio') }}" class="btn btn-primary">
+                View My Work
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+            <a href="{{ url_for('learning_lab') }}" class="btn btn-secondary">
+                Start Learning
+            </a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat">
+                <span class="stat-number">5+</span>
+                <span class="stat-label">Years Experience</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">Projects Completed</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">100+</span>
+                <span class="stat-label">Students Taught</span>
+            </div>
+        </div>
+    </div>
+    <div class="hero-scroll">
+        <span>Scroll to explore</span>
+        <div class="scroll-indicator">
+            <div class="scroll-dot"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section class="skills-section" id="skills">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Expertise</span>
+            <h2 class="section-title">Skills & Technologies</h2>
+            <p class="section-description">Technologies I use to bring ideas to life</p>
+        </div>
+        
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 17l6-6-6-6M12 19h8"/>
+                    </svg>
+                </div>
+                <h3>Languages</h3>
+                <div class="skill-tags">
+                    {% for skill in skills.languages %}
+                    <span class="skill-tag">{{ skill }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="skill-card">
+                <div class="skill-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <h3>Frameworks</h3>
+                <div class="skill-tags">
+                    {% for skill in skills.frameworks %}
+                    <span class="skill-tag">{{ skill }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="skill-card">
+                <div class="skill-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                    </svg>
+                </div>
+                <h3>Tools</h3>
+                <div class="skill-tags">
+                    {% for skill in skills.tools %}
+                    <span class="skill-tag">{{ skill }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="skill-card">
+                <div class="skill-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+                        <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+                        <path d="M2 2l7.586 7.586"/>
+                        <circle cx="11" cy="11" r="2"/>
+                    </svg>
+                </div>
+                <h3>Design</h3>
+                <div class="skill-tags">
+                    {% for skill in skills.design %}
+                    <span class="skill-tag">{{ skill }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Projects Section -->
+<section class="projects-section" id="projects">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Portfolio</span>
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-description">A selection of my recent work</p>
+        </div>
+        
+        <div class="projects-grid">
+            {% for project in projects %}
+            <article class="project-card">
+                <div class="project-image">
+                    <div class="project-placeholder" style="background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);">
+                        <span class="project-icon">{{ project.title[0] }}</span>
+                    </div>
+                    <div class="project-overlay">
+                        <div class="project-links">
+                            {% if project.link != '#' %}
+                            <a href="{{ project.link }}" class="project-link" target="_blank" rel="noopener" aria-label="View Live">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                                </svg>
+                            </a>
+                            {% endif %}
+                            {% if project.github %}
+                            <a href="{{ project.github }}" class="project-link" target="_blank" rel="noopener" aria-label="View Code">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <span class="project-category">{{ project.category }}</span>
+                    <h3 class="project-title">{{ project.title }}</h3>
+                    <p class="project-description">{{ project.description }}</p>
+                    <div class="project-tech">
+                        {% for tech in project.technologies %}
+                        <span class="tech-tag">{{ tech }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        
+        <div class="section-cta">
+            <a href="{{ url_for('portfolio') }}" class="btn btn-outline">
+                View All Projects
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Learning Lab Preview Section -->
+<section class="learning-preview" id="learning">
+    <div class="container">
+        <div class="learning-grid">
+            <div class="learning-content">
+                <span class="section-tag">Learning Lab</span>
+                <h2 class="section-title">Master Web Development</h2>
+                <p class="section-description">
+                    Structured learning paths for Python, HTML/CSS, and JavaScript. 
+                    Learn at your own pace with interactive code examples and progress tracking.
+                </p>
+                <ul class="learning-features">
+                    <li>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                        Interactive code snippets
+                    </li>
+                    <li>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                        Progress tracking
+                    </li>
+                    <li>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                        Beginner to advanced
+                    </li>
+                    <li>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                        Free forever
+                    </li>
+                </ul>
+                <a href="{{ url_for('learning_lab') }}" class="btn btn-primary">
+                    Explore Learning Lab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+            
+            <div class="learning-tracks">
+                {% for track_id, track in tracks.items() %}
+                <a href="{{ url_for('learning_lab', track=track_id) }}" class="track-card" style="--track-color: {{ track.color }}">
+                    <div class="track-icon">{{ track.icon }}</div>
+                    <div class="track-info">
+                        <h3>{{ track.title }}</h3>
+                        <p>{{ track.lessons|length }} lessons</p>
+                    </div>
+                    <div class="track-arrow">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6"/>
+                        </svg>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section" id="cta">
+    <div class="container">
+        <div class="cta-card">
+            <div class="cta-content">
+                <h2>Let's Build Something Amazing Together</h2>
+                <p>Have a project in mind? Looking for tutoring? I'd love to hear from you.</p>
+            </div>
+            <a href="{{ url_for('contact') }}" class="btn btn-light">
+                Get in Touch
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Typewriter Effect
+    const words = ["Developer.", "Designer.", "Educator."];
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const typewriterElement = document.getElementById('typewriter-text');
+    
+    function typeWriter() {
+        const currentWord = words[wordIndex];
+        
+        if (isDeleting) {
+            typewriterElement.textContent = currentWord.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            typewriterElement.textContent = currentWord.substring(0, charIndex + 1);
+            charIndex++;
+        }
+        
+        let typeSpeed = isDeleting ? 50 : 100;
+        
+        if (!isDeleting && charIndex === currentWord.length) {
+            typeSpeed = 2000;
+            isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            wordIndex = (wordIndex + 1) % words.length;
+            typeSpeed = 500;
+        }
+        
+        setTimeout(typeWriter, typeSpeed);
+    }
+    
+    // Start typewriter when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(typeWriter, 1000);
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found | {{ site_name }}{% endblock %}
+
+{% block content %}
+<section class="error-section">
+    <div class="container">
+        <div class="error-content">
+            <div class="error-code">404</div>
+            <h1 class="error-title">Page Not Found</h1>
+            <p class="error-description">
+                Oops! The page you're looking for seems to have wandered off into the digital void.
+            </p>
+            <div class="error-actions">
+                <a href="{{ url_for('home') }}" class="btn btn-primary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                        <polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                    Go Home
+                </a>
+                <a href="{{ url_for('learning_lab') }}" class="btn btn-secondary">
+                    Start Learning
+                </a>
+            </div>
+            <div class="error-illustration">
+                <div class="code-block error-code-block">
+                    <pre><code><span class="code-keyword">try</span>:
+    find_page(requested_url)
+<span class="code-keyword">except</span> PageNotFound:
+    <span class="code-keyword">return</span> <span class="code-string">"Sorry, this page doesn't exist!"</span></code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

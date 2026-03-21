@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Server Error | {{ site_name }}{% endblock %}
+
+{% block content %}
+<section class="error-section">
+    <div class="container">
+        <div class="error-content">
+            <div class="error-code">500</div>
+            <h1 class="error-title">Something Went Wrong</h1>
+            <p class="error-description">
+                Our server encountered an unexpected error. Don't worry, it's not you—it's us!
+            </p>
+            <div class="error-actions">
+                <a href="{{ url_for('home') }}" class="btn btn-primary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                        <polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                    Go Home
+                </a>
+                <button onclick="location.reload()" class="btn btn-secondary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="23 4 23 10 17 10"/>
+                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                    </svg>
+                    Try Again
+                </button>
+            </div>
+            <div class="error-illustration">
+                <div class="code-block error-code-block">
+                    <pre><code><span class="code-keyword">def</span> <span class="code-function">handle_request</span>():
+    <span class="code-keyword">try</span>:
+        process_request()
+    <span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+        log_error(e)
+        <span class="code-keyword">return</span> <span class="code-string">"We're fixing this!"</span></code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

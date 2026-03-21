@@ -1,0 +1,268 @@
+{% extends "base.html" %}
+
+{% block title %}Learning Lab | {{ site_name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header learning-header">
+    <div class="container">
+        <span class="section-tag">Education</span>
+        <h1 class="page-title">Learning Lab</h1>
+        <p class="page-description">Structured learning paths to master web development. Learn at your own pace with interactive examples.</p>
+    </div>
+</section>
+
+<!-- Progress Overview -->
+<section class="progress-overview">
+    <div class="container">
+        <div class="progress-card">
+            <div class="progress-info">
+                <h3>Your Progress</h3>
+                <p>Track your learning journey across all tracks</p>
+            </div>
+            <div class="progress-stats">
+                <div class="progress-item">
+                    <span class="progress-value" id="completedLessons">0</span>
+                    <span class="progress-label">Lessons Completed</span>
+                </div>
+                <div class="progress-item">
+                    <span class="progress-value" id="totalLessons">{{ total_lessons }}</span>
+                    <span class="progress-label">Total Lessons</span>
+                </div>
+                <div class="progress-item">
+                    <span class="progress-value" id="completionRate">0%</span>
+                    <span class="progress-label">Completion Rate</span>
+                </div>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="overallProgress"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Learning Tracks -->
+<section class="learning-tracks-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Learning Paths</span>
+            <h2 class="section-title">Choose Your Track</h2>
+        </div>
+        
+        <div class="tracks-grid">
+            {% for track_id, track in tracks.items() %}
+            <article class="track-card-large" style="--track-color: {{ track.color }}">
+                <div class="track-header">
+                    <div class="track-icon-large">{{ track.icon }}</div>
+                    <div class="track-meta">
+                        <span class="track-lessons">{{ track.lessons|length }} lessons</span>
+                        <span class="track-difficulty">Beginner - Advanced</span>
+                    </div>
+                </div>
+                <h3 class="track-title">{{ track.title }}</h3>
+                <p class="track-description">{{ track.description }}</p>
+                
+                <div class="track-progress">
+                    <div class="track-progress-header">
+                        <span>Progress</span>
+                        <span class="track-progress-value" data-track="{{ track_id }}">0%</span>
+                    </div>
+                    <div class="track-progress-bar">
+                        <div class="track-progress-fill" data-track="{{ track_id }}"></div>
+                    </div>
+                </div>
+                
+                <div class="track-preview">
+                    <h4>What you'll learn:</h4>
+                    <ul class="track-topics">
+                        {% for lesson in track.lessons[:3] %}
+                        <li>{{ lesson.title }}</li>
+                        {% endfor %}
+                        {% if track.lessons|length > 3 %}
+                        <li class="more-topics">+{{ track.lessons|length - 3 }} more lessons</li>
+                        {% endif %}
+                    </ul>
+                </div>
+                
+                <a href="{{ url_for('learning_lab', track=track_id) }}" class="btn btn-track">
+                    Start Learning
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Code Playground Preview -->
+<section class="playground-preview">
+    <div class="container">
+        <div class="playground-grid">
+            <div class="playground-content">
+                <span class="section-tag">Interactive</span>
+                <h2 class="section-title">Learn by Doing</h2>
+                <p class="section-description">
+                    Every lesson includes interactive code examples. 
+                    Copy, modify, and experiment with the code to reinforce your learning.
+                </p>
+                <ul class="playground-features">
+                    <li>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        Syntax-highlighted code snippets
+                    </li>
+                    <li>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        Copy-to-clipboard functionality
+                    </li>
+                    <li>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        Line-by-line explanations
+                    </li>
+                    <li>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        Best practices included
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="playground-demo">
+                <div class="code-window">
+                    <div class="code-header">
+                        <div class="code-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <span class="code-filename">example.py</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><code><span class="code-comment"># Welcome to Python!</span>
+<span class="code-keyword">def</span> <span class="code-function">greet</span>(name):
+    <span class="code-string">"""A simple greeting function"""</span>
+    <span class="code-keyword">return</span> <span class="code-string">f"Hello, {name}!"</span>
+
+<span class="code-comment"># Let's use it</span>
+message = greet(<span class="code-string">"Learner"</span>)
+<span class="code-function">print</span>(message)
+<span class="code-comment"># Output: Hello, Learner!</span></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Study Tips -->
+<section class="tips-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Tips</span>
+            <h2 class="section-title">How to Succeed</h2>
+        </div>
+        
+        <div class="tips-grid">
+            <div class="tip-card">
+                <div class="tip-icon">📅</div>
+                <h3>Be Consistent</h3>
+                <p>Even 30 minutes daily is better than occasional long sessions. Build a habit.</p>
+            </div>
+            <div class="tip-card">
+                <div class="tip-icon">✍️</div>
+                <h3>Practice</h3>
+                <p>Type out the code yourself. Don't just copy-paste. Muscle memory matters.</p>
+            </div>
+            <div class="tip-card">
+                <div class="tip-icon">🔧</div>
+                <h3>Experiment</h3>
+                <p>Modify the examples. Break things. That's how you truly learn.</p>
+            </div>
+            <div class="tip-card">
+                <div class="tip-icon">🎯</div>
+                <h3>Build Projects</h3>
+                <p>Apply what you learn to real projects. Theory + practice = mastery.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Progress Tracking
+    class LearningProgress {
+        constructor() {
+            this.progress = this.loadProgress();
+            this.updateUI();
+        }
+        
+        loadProgress() {
+            const saved = localStorage.getItem('th7media_learning_progress');
+            return saved ? JSON.parse(saved) : {};
+        }
+        
+        saveProgress() {
+            localStorage.setItem('th7media_learning_progress', JSON.stringify(this.progress));
+        }
+        
+        completeLesson(lessonId) {
+            this.progress[lessonId] = {
+                completed: true,
+                completedAt: new Date().toISOString()
+            };
+            this.saveProgress();
+            this.updateUI();
+        }
+        
+        isCompleted(lessonId) {
+            return this.progress[lessonId]?.completed || false;
+        }
+        
+        getTrackProgress(trackLessons) {
+            const completed = trackLessons.filter(l => this.isCompleted(l.id)).length;
+            return {
+                completed,
+                total: trackLessons.length,
+                percentage: Math.round((completed / trackLessons.length) * 100)
+            };
+        }
+        
+        updateUI() {
+            // Update overall stats
+            const totalCompleted = Object.keys(this.progress).length;
+            const totalLessons = parseInt(document.getElementById('totalLessons').textContent);
+            const completionRate = Math.round((totalCompleted / totalLessons) * 100);
+            
+            document.getElementById('completedLessons').textContent = totalCompleted;
+            document.getElementById('completionRate').textContent = completionRate + '%';
+            document.getElementById('overallProgress').style.width = completionRate + '%';
+            
+            // Update track progress
+            {% for track_id, track in tracks.items() %}
+            const {{ track_id }}Lessons = {{ track.lessons|map(attribute='id')|list|tojson }};
+            const {{ track_id }}Progress = this.getTrackProgress(
+                {{ track_id }}Lessons.map(id => ({ id }))
+            );
+            
+            const {{ track_id }}ValueEl = document.querySelector('[data-track="{{ track_id }}"].track-progress-value');
+            const {{ track_id }}FillEl = document.querySelector('[data-track="{{ track_id }}"].track-progress-fill');
+            
+            if ({{ track_id }}ValueEl) {{ track_id }}ValueEl.textContent = {{ track_id }}Progress.percentage + '%';
+            if ({{ track_id }}FillEl) {{ track_id }}FillEl.style.width = {{ track_id }}Progress.percentage + '%';
+            {% endfor %}
+        }
+    }
+    
+    // Initialize progress tracker
+    const progressTracker = new LearningProgress();
+</script>
+{% endblock %}

@@ -1,0 +1,289 @@
+{% extends "base.html" %}
+
+{% block title %}{{ track.title }} | Learning Lab | {{ site_name }}{% endblock %}
+
+{% block content %}
+<!-- Track Header -->
+<section class="track-hero" style="--track-color: {{ track.color }}">
+    <div class="container">
+        <div class="track-breadcrumbs">
+            <a href="{{ url_for('learning_lab') }}">Learning Lab</a>
+            <span>/</span>
+            <span>{{ track.title }}</span>
+        </div>
+        <div class="track-hero-content">
+            <div class="track-hero-icon">{{ track.icon }}</div>
+            <h1 class="track-hero-title">{{ track.title }}</h1>
+            <p class="track-hero-description">{{ track.description }}</p>
+            <div class="track-hero-meta">
+                <span class="meta-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                    {{ track.lessons|length }} Lessons
+                </span>
+                <span class="meta-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                    Self-paced
+                </span>
+                <span class="meta-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    Free
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Track Progress -->
+<section class="track-progress-section">
+    <div class="container">
+        <div class="track-progress-card">
+            <div class="track-progress-info">
+                <h3>Track Progress</h3>
+                <p>Your journey through {{ track.title }}</p>
+            </div>
+            <div class="track-progress-stats">
+                <span class="progress-fraction">
+                    <span id="trackCompleted">0</span> / {{ track.lessons|length }} lessons
+                </span>
+                <span class="progress-percentage" id="trackPercentage">0%</span>
+            </div>
+            <div class="track-progress-bar-large">
+                <div class="track-progress-fill-large" id="trackProgressBar"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Lessons List -->
+<section class="lessons-section">
+    <div class="container">
+        <div class="lessons-grid">
+            {% for lesson in track.lessons %}
+            <article class="lesson-card" data-lesson-id="{{ lesson.id }}">
+                <div class="lesson-header">
+                    <div class="lesson-number">{{ loop.index }}</div>
+                    <div class="lesson-status" data-lesson="{{ lesson.id }}">
+                        <svg class="status-icon pending" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                        </svg>
+                        <svg class="status-icon completed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="lesson-content">
+                    <span class="lesson-difficulty {{ lesson.difficulty|lower }}">{{ lesson.difficulty }}</span>
+                    <h3 class="lesson-title">{{ lesson.title }}</h3>
+                    <p class="lesson-description">{{ lesson.description }}</p>
+                    
+                    <div class="lesson-meta">
+                        <span class="lesson-duration">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            {{ lesson.duration }}
+                        </span>
+                    </div>
+                </div>
+                
+                <button class="lesson-toggle" aria-label="Toggle lesson content">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </button>
+                
+                <div class="lesson-expanded">
+                    <div class="code-snippet-container">
+                        <div class="code-header">
+                            <span class="code-title">Code Example</span>
+                            <button class="copy-btn" data-clipboard="{{ lesson.code_snippet|e }}">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                                </svg>
+                                Copy
+                            </button>
+                        </div>
+                        <div class="code-block">
+                            <pre><code>{{ lesson.code_snippet }}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="lesson-actions">
+                        <button class="btn btn-complete" data-lesson="{{ lesson.id }}">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            Mark as Complete
+                        </button>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Navigation to Other Tracks -->
+<section class="other-tracks">
+    <div class="container">
+        <h3 class="other-tracks-title">Explore Other Tracks</h3>
+        <div class="other-tracks-grid">
+            {% for other_id, other_track in all_tracks.items() %}
+            {% if other_id != track_id %}
+            <a href="{{ url_for('learning_lab', track=other_id) }}" class="other-track-card" style="--track-color: {{ other_track.color }}">
+                <span class="other-track-icon">{{ other_track.icon }}</span>
+                <div class="other-track-info">
+                    <h4>{{ other_track.title }}</h4>
+                    <p>{{ other_track.lessons|length }} lessons</p>
+                </div>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18l6-6-6-6"/>
+                </svg>
+            </a>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Track Progress Management
+    class TrackProgress {
+        constructor() {
+            this.trackId = '{{ track_id }}';
+            this.lessons = {{ track.lessons|map(attribute='id')|list|tojson }};
+            this.progress = this.loadProgress();
+            this.init();
+        }
+        
+        loadProgress() {
+            const saved = localStorage.getItem('th7media_learning_progress');
+            return saved ? JSON.parse(saved) : {};
+        }
+        
+        saveProgress() {
+            localStorage.setItem('th7media_learning_progress', JSON.stringify(this.progress));
+        }
+        
+        init() {
+            this.updateUI();
+            this.bindEvents();
+        }
+        
+        bindEvents() {
+            // Lesson toggle
+            document.querySelectorAll('.lesson-toggle').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const card = e.currentTarget.closest('.lesson-card');
+                    card.classList.toggle('expanded');
+                });
+            });
+            
+            // Complete button
+            document.querySelectorAll('.btn-complete').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const lessonId = e.currentTarget.dataset.lesson;
+                    this.toggleComplete(lessonId);
+                });
+            });
+            
+            // Copy button
+            document.querySelectorAll('.copy-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const code = e.currentTarget.dataset.clipboard;
+                    navigator.clipboard.writeText(code).then(() => {
+                        const originalText = e.currentTarget.innerHTML;
+                        e.currentTarget.innerHTML = `
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Copied!
+                        `;
+                        setTimeout(() => {
+                            e.currentTarget.innerHTML = originalText;
+                        }, 2000);
+                    });
+                });
+            });
+        }
+        
+        toggleComplete(lessonId) {
+            if (this.progress[lessonId]?.completed) {
+                delete this.progress[lessonId];
+            } else {
+                this.progress[lessonId] = {
+                    completed: true,
+                    completedAt: new Date().toISOString()
+                };
+            }
+            this.saveProgress();
+            this.updateUI();
+        }
+        
+        isCompleted(lessonId) {
+            return this.progress[lessonId]?.completed || false;
+        }
+        
+        updateUI() {
+            const completed = this.lessons.filter(id => this.isCompleted(id));
+            const percentage = Math.round((completed.length / this.lessons.length) * 100);
+            
+            // Update stats
+            document.getElementById('trackCompleted').textContent = completed.length;
+            document.getElementById('trackPercentage').textContent = percentage + '%';
+            document.getElementById('trackProgressBar').style.width = percentage + '%';
+            
+            // Update lesson cards
+            this.lessons.forEach(lessonId => {
+                const card = document.querySelector(`[data-lesson-id="${lessonId}"]`);
+                const statusEl = document.querySelector(`[data-lesson="${lessonId}"]`);
+                const btn = document.querySelector(`.btn-complete[data-lesson="${lessonId}"]`);
+                
+                if (this.isCompleted(lessonId)) {
+                    card?.classList.add('completed');
+                    statusEl?.classList.add('completed');
+                    if (btn) {
+                        btn.innerHTML = `
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Completed
+                        `;
+                        btn.classList.add('completed');
+                    }
+                } else {
+                    card?.classList.remove('completed');
+                    statusEl?.classList.remove('completed');
+                    if (btn) {
+                        btn.innerHTML = `
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            Mark as Complete
+                        `;
+                        btn.classList.remove('completed');
+                    }
+                }
+            });
+        }
+    }
+    
+    // Initialize track progress
+    const trackProgress = new TrackProgress();
+</script>
+{% endblock %}
